@@ -3,6 +3,7 @@ package vocabulary;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -13,11 +14,8 @@ public class Main {
 		BufferedReader br = null;
 		//用意したcsvファイル
 		String file_name = "src/tango.csv";
-
-		//配列を作るためにデータの個数をあらかじめ決めておく
-		final int MAX_DATA_NUMS = 100;
-
-		String[][] data = new String[MAX_DATA_NUMS][];
+		
+		ArrayList<String[]> data = new ArrayList<String[]>();
 
 		//配列にデータを格納する
 		try {
@@ -32,8 +30,7 @@ public class Main {
 			String line;
 
 			while((line = br.readLine())!= null) {
-
-				data[index] = line.split(",", -1);
+				data.add(line.split(",", -1));
 				index++;
 			}
 
@@ -52,24 +49,23 @@ public class Main {
 			while (true) {
 				//疑似乱数生成
 				Random random = new Random();
-				//0以上10未満の乱数
-				int randomValue = random.nextInt(9);
+				int randomValue = random.nextInt(17);
 
 				Scanner enterInput = new Scanner(System.in); //enterの入力を受け取る
-				System.out.println("Q: " + data[randomValue][1]); //問題となる値を表示する
+				System.out.println("Q:" + data.get(randomValue)[1]); //問題となる値を表示する
 				enterInput.nextLine(); //enterの入力待ち
-				System.out.println("A: " + data[randomValue][0] + "\n\n"); //答えとなる値を表示する
+				System.out.println("A:" + data.get(randomValue)[0] + "\n\n"); //答えとなる値を表示する
 
 			}
 		} else if (modeInput.equals("b")) {
 			while (true) {
 
 				Random random = new Random();
-				int randomValue = random.nextInt(9);
+				int randomValue = random.nextInt(17);
 				Scanner enterInput = new Scanner(System.in);
-				System.out.println("Q: " + data[randomValue][0]); //aの分岐と逆の表示順にする
+				System.out.println("Q:" + data.get(randomValue)[0]); //aの分岐と逆の表示順にする
 				enterInput.nextLine();
-				System.out.println("A: " + data[randomValue][1] + "\n\n");
+				System.out.println("A:" + data.get(randomValue)[1] + "\n\n");
 
 			}
 		} else { //「a」「b」以外の入力を受け取った時
